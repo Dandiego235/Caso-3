@@ -24,11 +24,16 @@ class Stack{
             return stack->getLast()->structure;
         }
 
-        void push(T data){
+        void push(T *data){
+            stack->add(data);
+            cout << "pushed " << *data << endl;
+        }
+
+        /*void push(T data){
             T *pointer = new T(data);
             stack->add(pointer);
             cout << "pushed " << data << endl;
-        }
+        }*/
 
         T* pop(){
             return stack->remove(size()-1);

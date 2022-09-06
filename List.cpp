@@ -149,6 +149,9 @@ class List {
             delete searchPosition; // se borra el nodo en la posición.
             quantity--;
         }
+        if (result != nullptr){
+            cout << *result << endl;
+        }
         return result;
     }
 
