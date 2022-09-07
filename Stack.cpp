@@ -25,28 +25,26 @@ class Stack{
         }
 
         void push(T *data){
-            stack->add(data);
-            cout << "pushed " << *data << endl;
+            stack->addAtBeginning(data);
+            //cout << "pushed " << *data << endl;
         }
 
-        /*void push(T data){
-            T *pointer = new T(data);
-            stack->add(pointer);
-            cout << "pushed " << data << endl;
-        }*/
-
         T* pop(){
-            return stack->remove(size()-1);
+            return stack->remove(0);
         }
 
         void print(){
-            Node<T> *nodePointer = stack->getLast();
+            Node<T> *nodePointer = stack->getFirst();
             int tamano = size();
 
             while (nodePointer != nullptr){
                 cout << tamano-- << ". " << *(nodePointer->structure) << endl;
-                nodePointer = nodePointer->getPrev();
+                nodePointer = nodePointer->getNext();
             }
+        }
+
+        bool isEmpty(){
+            return stack->isEmpty();
         }
 };
 

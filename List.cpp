@@ -23,6 +23,10 @@ class List {
             quantity = 0;
         }
 
+        bool isEmpty() {
+            return !quantity;
+        }
+        
         void add(T *pData) // Función que inserta un nodo al final.
         {
             Node<T> *newNode = new Node<T>(pData); // crea el nuevo nodo
@@ -40,6 +44,20 @@ class List {
             quantity++;
         }
 
+        void addAtBeginning(T *pData) {
+            Node<T> *newNode = new Node<T>(pData);
+
+            if (this->first!=nullptr) {
+                newNode->setNext(this->first);
+            } else {
+                this->last = newNode;
+            }
+            this->first = newNode;
+            this->first->setPrev(newNode);
+
+            quantity++;
+        }
+        
         Node<T>* getFirst() { // Retorna el primer nodo de la lista.
             return this->first;
         }
@@ -50,14 +68,6 @@ class List {
 
         int size() { // Retorna el tamaño de la lista.
             return quantity;
-        }
-
-        void print(){ // Imprime los nombres de las estructuras a las que apuntan los nodos.
-            Node<T> *search = first;
-            while (search != nullptr){
-                cout << search->structure->name << endl;
-                search = search->getNext();
-            }
         }
 
         T* find(int pPosition){
@@ -110,7 +120,6 @@ class List {
 
     T* remove(int pPosition)
     {
-        cout << "Remove" << endl;
         T *result = nullptr; // resultado de si se eliminó o no
         if (first != nullptr && pPosition < size())
         {
@@ -148,9 +157,6 @@ class List {
             result = searchPosition->structure;
             delete searchPosition; // se borra el nodo en la posición.
             quantity--;
-        }
-        if (result != nullptr){
-            cout << *result << endl;
         }
         return result;
     }
