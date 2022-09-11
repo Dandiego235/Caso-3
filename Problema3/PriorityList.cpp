@@ -1,9 +1,9 @@
-#include "Node.cpp"
+#include "PriorityNode.cpp"
 #include <iostream>
 
-#ifndef LIST
+#ifndef PLIST
 
-#define LIST 1
+#define PLIST 1
 
 using namespace std;
 
@@ -27,9 +27,9 @@ class List {
             return !quantity;
         }
         
-        void add(T *pData) // Función que inserta un nodo al final.
+        void add(T *pData, int pPriority=0) // Función que inserta un nodo al final.
         {
-            Node<T> *newNode = new Node<T>(pData); // crea el nuevo nodo
+            Node<T> *newNode = new Node<T>(pData, pPriority); // crea el nuevo nodo
 
             if (quantity > 0) // si la lista no está vacía
             {
@@ -44,8 +44,8 @@ class List {
             quantity++;
         }
 
-        void addAtBeginning(T *pData) {
-            Node<T> *newNode = new Node<T>(pData);
+        void addAtBeginning(T *pData, int pPriority=0) {
+            Node<T> *newNode = new Node<T>(pData, pPriority);
 
             if (this->first!=nullptr) {
                 newNode->setNext(this->first);
@@ -88,10 +88,10 @@ class List {
             // Si la posición no existe, queda nulo.
         }
 
-    void insert(int pPosition, T *pData){
+    void insert(int pPosition, T *pData, int pPriority=0){
         // Si el position es mayor a la cantidad, entonces inserto al final
         if (pPosition < size() && first != nullptr){
-            Node<T> *newNodo = new Node<T>(pData); // Nuevo nodo con el valor dado.
+            Node<T> *newNodo = new Node<T>(pData, pPriority); // Nuevo nodo con el valor dado.
             find(pPosition); // Se coloca el buscador en la posición deseada, no nos interesa lo que retorna.
 
             newNodo->setNext(searchPosition);

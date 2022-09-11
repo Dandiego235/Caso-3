@@ -1,7 +1,8 @@
-#include "Stack.cpp"
+#include "../Stack.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cctype>
 
 using namespace std;
 
@@ -20,13 +21,7 @@ string convertPostfix(string pString){
         *caracter = pString[0];
         pString = pString.substr(1); // y recorta el string a partir de la primera letra.
         cout << *caracter << " y " << pString << endl;
-        if (*caracter == ' '){ // Si el caracter es un espacio, continúa.
-            delete caracter;
-            continue;
-        }
-        
-        string numString = "0123456789"; // String para verificar si un caracter es un número.
-        if (numString.find(*caracter) != numString.npos){ // Si el resultado no es npos, sí es un número.
+        if (isdigit(*caracter)){ // Se revisa si el caracter es un número.
             numberAdd += *caracter; // Lo concatena a nuestro string de número por si vienen más dígitos después.
             delete caracter;
         } else {
@@ -34,20 +29,24 @@ string convertPostfix(string pString){
                 postfix += numberAdd + " ";
                 numberAdd = "";
             }
-            if (*caracter == '('){ // If caracter es un paréntesis izquierdo, lo metemos en la pila.
-                stack.push(caracter);
-                
-            } else if (*caracter == ')'){ // Si es un paréntesis derecho, sacamos todo de la pila hasta que encontramos el paréntesis izquierdo.
-                while (stack.size() != 0 && *stack.getTop() != '('){
+            switch(*caracter){
+                case '(':
+                    stack.push(caracter);
+                    break;
+                case ')':
+                    while (stack.size() != 0 && *stack.getTop() != '('){
                         postfix.push_back(*stack.pop());
                         postfix += " ";
                     }
                     stack.pop(); // sacamos el paréntesis izquierdo de la pila.
-            } else if (*caracter == '*' || *caracter == '/' || *caracter == '%'){
-                // si el caracter es un *, / o %, 
-                if (stack.size() == 0 || *stack.getTop() == '+' or *stack.getTop() == '-'){
-                    // Si el stack está vacío o si el operador en el top tiene una precedencia menor, se mete al stack.
-                        stack.push(caracter);
+                    break;
+                case '*':
+                case '/':
+                case '%':
+                    // si el caracter es un *, / o %, 
+                    if (stack.size() == 0 || *stack.getTop() == '+' or *stack.getTop() == '-'){
+                        // Si el stack está vacío o si el operador en el top tiene una precedencia menor, se mete al stack.
+                            stack.push(caracter);
                     } else {
                         string opString = "*/%"; // String para agrupar los operadores con la mayor precedencia.
                         while (stack.size() != 0 && opString.find(*stack.getTop()) != opString.npos){
@@ -57,18 +56,20 @@ string convertPostfix(string pString){
                         }
                         stack.push(caracter); // Metemos el caracter que leímos al stack.
                     }
-            } else if (*caracter == '+' || *caracter == '-'){
-                // Si el caracter es un + o un -, 
-                if (stack.size() == 0 || *stack.getTop() == '('){
-                    // Si la pila está vacía o hay un paréntesis izquierdo, metemos el caracter en la pila.
-                    stack.push(caracter);
-                } else { // si no está vacía o si no es un (, sacamos todo lo que haya en la pila hasta que quede vacía o nos topemos el paréntesis.
-                    while (stack.size() != 0 && *stack.getTop() != '('){
-                        postfix.push_back(*stack.pop());
-                        postfix += " ";
+                    break;
+                case '+':
+                case '-':
+                    // Si el caracter es un + o un -, 
+                    if (stack.size() == 0 || *stack.getTop() == '('){
+                        // Si la pila está vacía o hay un paréntesis izquierdo, metemos el caracter en la pila.
+                        stack.push(caracter);
+                    } else { // si no está vacía o si no es un (, sacamos todo lo que haya en la pila hasta que quede vacía o nos topemos el paréntesis.
+                        while (stack.size() != 0 && *stack.getTop() != '('){
+                            postfix.push_back(*stack.pop());
+                            postfix += " ";
+                        }
+                        stack.push(caracter); // metemos el caracter en la pila.
                     }
-                    stack.push(caracter); // metemos el caracter en la pila.
-                }
             }
         }
         stack.print();
@@ -112,24 +113,28 @@ int evaluatePostfix(string pString){
             delete caracter;
             continue;
         }
-        string numString = "0123456789"; // string para verificar si el caracter es un dígito.
-        if (numString.find(*caracter) != numString.npos){ // Si encuentra el caracter en el string, es un dígito.
+        if (isdigit(*caracter)){ // Se revisa si el caracter es un número.
             ss << *caracter; // Se concatena al stream.
             delete caracter;
         } else { // Si no es un dígito, es un operador.
             num = (int*) malloc(sizeof(int));
             operando2 = *stack.pop(); // Se sacan los dos números anteriors para usarlos de operandos.
             operando1 = *stack.pop();
-            if (*caracter == '*'){ // Si es un *, se multiplican y el resultado se mete a la pila.
-                *num = operando1*operando2;
-            } else if (*caracter == '/'){ // Si es un /, se dividen y el resultado se mete a la pila.
-                *num = operando1/operando2;
-            } else if (*caracter == '%'){ // Si es un %, se obtiene el residuo y el resultado se mete a la pila.
-                *num = operando1%operando2;
-            } else if (*caracter == '+'){ // Si es un +, se suman y el resultado se mete a la pila.
-                *num = operando1+operando2;
-            } else { // Si es un -, se restan y el resultado se mete a la pila.
-                *num = operando1-operando2;
+            switch(*caracter){
+                case '*':
+                    *num = operando1*operando2;
+                    break;
+                case '/':
+                    *num = operando1/operando2;
+                    break;
+                case '%':
+                    *num = operando1%operando2;
+                    break;
+                case '+':
+                    *num = operando1+operando2;
+                    break;
+                case '-':
+                    *num = operando1-operando2;
             }
             stack.push(num);
         }
@@ -139,9 +144,12 @@ int evaluatePostfix(string pString){
 
 main(){
     string entrada;
-    cout << "Ingrese el número: " << endl;
+    cout << "Ingrese la expresión: " << endl;
     cin >> entrada;
     string postfix = convertPostfix(entrada);
     cout << postfix << endl;
     cout << evaluatePostfix(postfix) << endl;
 }
+
+// Revisar is digit
+//25*7+(100-25)%4-17/3

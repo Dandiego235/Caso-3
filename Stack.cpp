@@ -21,7 +21,7 @@ class Stack{
         }
 
         T* getTop(){
-            return stack->getLast()->structure;
+            return stack->getFirst()->structure;
         }
 
         void push(T *data){
