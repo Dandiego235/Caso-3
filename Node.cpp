@@ -6,11 +6,9 @@
 
 using namespace std;
 
+// Lista doblemente enlazada
 template <class T>
 class Node{
-    private:
-        Node<T> *next;
-        Node<T> *prev;
     public:
         T *structure; // El nodo apunta a una estructura, un struct o clase.
         Node(){
@@ -39,6 +37,9 @@ class Node{
         void setPrev(Node<T> *pointer){
             this->prev = pointer;
         }
+    private:
+        Node<T> *next; //punteros al nodo siguiente y anterior
+        Node<T> *prev;
 };
 
 #endif

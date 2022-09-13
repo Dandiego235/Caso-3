@@ -9,12 +9,6 @@ using namespace std;
 
 template <class T>
 class List {
-    private:
-        Node<T> *first; // primer nodo
-        Node<T> *last; // ultimo nodo
-        int quantity; // cantidad de nodes
-        Node<T> *searchPosition; // punter para buscar nodos
-
     public:
         List(){
             first = nullptr; // inicializamos los atributos.
@@ -161,7 +155,12 @@ class List {
         }
         return result;
     }
-
+    
+    private:
+        Node<T> *first; // primer nodo
+        Node<T> *last; // ultimo nodo
+        int quantity; // cantidad de nodes
+        Node<T> *searchPosition; // punter para buscar nodos
 };
 
 #endif

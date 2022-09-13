@@ -13,7 +13,7 @@ class List {
         Node<T> *first; // primer nodo
         Node<T> *last; // ultimo nodo
         int quantity; // cantidad de nodes
-        Node<T> *searchPosition; // punter para buscar nodos
+        Node<T> *searchPosition; // puntero para buscar nodos
 
     public:
         List(){
@@ -118,32 +118,24 @@ class List {
         }
     }
 
-    T* remove(int pPosition)
-    {
+    T* remove(int pPosition) {
         T *result = nullptr; // resultado de si se eliminó o no
-        if (first != nullptr && pPosition < size())
-        {
+        if (first != nullptr && pPosition < size()) {
             find(pPosition); // Se posiciona el puntero searchPosition en la posición dada.
-            if (pPosition != 0) // Si no es el primer elemento
-            {
+            if (pPosition != 0) { // Si no es el primer elemento
                 searchPosition->getPrev()->setNext(searchPosition->getNext());
                 // Se pone que el nodo siguiente del nodo anterior a la posición es el siguiente del nodo en la posición
                 // Nos "saltamos" al nodo original
 
-                if (searchPosition != last) // Si la posición no es el último nodo.
-                {
+                if (searchPosition != last){ // Si la posición no es el último nodo.
                     searchPosition->getNext()->setPrev(searchPosition->getPrev());
-                    // si no es el último, se pone que el anterior del nodo siguiente a la posición, es el anterior del nodo en la posición a borrar.
+                    // si no es el último, se pone que el anterior del nodo siguiente a la posición, es el anterior del nodo en la posición a 
+                    //borrar.
                     // Desconectamos el nodo de sus vecinos.
-                }
-                else
-                {
+                } else {
                     last = searchPosition->getPrev(); // Si es el último, el nuevo last es el anterior del nodo en la posicíon.
-
                 }
-            }
-            else
-            {
+            } else {
                 if (first != last){
                     first = first->getNext();
                     // si es el primer elemento, se pone que el nuevo primer elemento es el siguiente del nodo en la posición.
