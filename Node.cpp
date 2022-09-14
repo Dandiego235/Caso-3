@@ -10,7 +10,6 @@ using namespace std;
 template <class T>
 class Node{
     public:
-        T *structure; // El nodo apunta a una estructura, un struct o clase.
         Node(){
             next = nullptr;
             prev = nullptr;
@@ -37,9 +36,19 @@ class Node{
         void setPrev(Node<T> *pointer){
             this->prev = pointer;
         }
+
+        void setData(T* pStructure){
+            structure = pStructure;
+        }
+
+        T* getData(){
+            return structure;
+        }
+
     private:
         Node<T> *next; //punteros al nodo siguiente y anterior
         Node<T> *prev;
+        T *structure; // El nodo apunta a una estructura, un struct o clase.
 };
 
 #endif

@@ -81,7 +81,7 @@ class List {
                     searchPosition = searchPosition->getNext(); // Corre el puntero al siguiente
                     pPosition--; // decrementa la posición
                 }
-                result = searchPosition->structure;
+                result = searchPosition->getData();
                 // Cuando está en la posición dada, retorna la estructura que contiene el nodo.
             }
             return result;
@@ -146,8 +146,8 @@ class List {
                     last = nullptr;
                 }
             }
-            result = searchPosition->structure;
-            searchPosition->structure = nullptr;
+            result = searchPosition->getData();
+            searchPosition->setData(nullptr);
             delete searchPosition; // se borra el nodo en la posición.
             quantity--;
         }

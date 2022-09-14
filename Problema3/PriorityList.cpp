@@ -75,7 +75,7 @@ class List {
                     searchPosition = searchPosition->getNext(); // Corre el puntero al siguiente
                     pPosition--; // decrementa la posición
                 }
-                result = searchPosition->structure;
+                result = searchPosition->getData();
                 // Cuando está en la posición dada, retorna la estructura que contiene el nodo.
             }
             return result;
@@ -110,6 +110,27 @@ class List {
             add(pData);
             // Si la posición dada es mayor o igual que la cantidad de nodos, se agrega al final.
         }
+    }
+
+    // Función que recibe un puntero a un nodo, y un elemento a insertar, e inserta un nodo con el elemento antes de este nodo puntero.
+    void insertAtNode(Node<T> *nodePtr, T *pData, int pPriority=0){
+        Node<T> *newNodo = new Node<T>(pData, pPriority);
+        newNodo->setNext(nodePtr);
+        // Se pone el siguiente del nuevo nodo como el nodo en la posición
+        newNodo->setPrev(nodePtr->getPrev());
+        // Se pone el anterior del nuevo nodo como el nodo anterior del nodo en la posición
+        if (nodePtr->getPrev() != nullptr) // Si el anterior del nodo en la posición no es nulo, o sea, si no es el primer nodo.
+        {
+            nodePtr->getPrev()->setNext(newNodo);
+            // Se pone el siguiente del nodo anterior al nodo de la posición, como el nodo nuevo.
+        }
+        else
+        {
+            this->first = newNodo; // si es el primer nodo, se establece que el primer nodo es el nuevo nodo.
+            // el puntero al anterior queda apuntando a nulo.
+        }
+        nodePtr->setPrev(newNodo);
+        quantity++;
     }
 
     T* remove(int pPosition)
@@ -148,8 +169,8 @@ class List {
                     last = nullptr;
                 }
             }
-            result = searchPosition->structure;
-            searchPosition->structure = nullptr;
+            result = searchPosition->getData();
+            searchPosition->setData(nullptr);
             delete searchPosition; // se borra el nodo en la posición.
             quantity--;
         }

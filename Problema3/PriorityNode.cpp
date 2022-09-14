@@ -9,7 +9,6 @@ using namespace std;
 template <class T>
 class Node{
     public:
-        T *structure; // El nodo apunta a una estructura, un struct o clase.
         Node(){
             next = nullptr;
             prev = nullptr;
@@ -46,11 +45,21 @@ class Node{
         int getPriority(){
             return priority;
         }
+
+        T* getData(){
+            return structure;
+        }
+
+        void setData(T* pStruct){
+            structure = pStruct;
+        }
         
     private:
         Node<T> *next;
         Node<T> *prev;
         int priority;
+        T *structure; // El nodo apunta a una estructura, un struct o clase.
+
 };
 
 #endif

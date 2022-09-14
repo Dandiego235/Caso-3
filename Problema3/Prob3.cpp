@@ -10,7 +10,7 @@ using namespace std;
 #define MINUTES 60
 #define NUM_MAX_PASSENGERS 500
 #define NUM_AIRLINES 6
-#define RUNWAY_QUANTITY 5
+#define RUNWAY_QUANTITY 3
 
 // debe llenar una lista de pCantidad vuelos aleatorios cuya hora y minutos de partida esten entre pStartHour y pEndHour
 // tomando en cuenta las restricciones de los minutos de salida segun el ejercicio 3 del caso #3
