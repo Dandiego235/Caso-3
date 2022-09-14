@@ -49,11 +49,11 @@ class List {
 
             if (this->first!=nullptr) {
                 newNode->setNext(this->first);
+                this->first->setPrev(newNode);
             } else {
                 this->last = newNode;
             }
             this->first = newNode;
-            this->first->setPrev(newNode);
 
             quantity++;
         }

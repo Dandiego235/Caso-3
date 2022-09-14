@@ -69,8 +69,9 @@ int main() {
     string airlines[NUM_AIRLINES] = {"United", "American", "Copa", "British", "Jet Blue", "Fly Emirates"};
     // arreglo de las aerolíneas.
 
-    fillFlights(60, 0, 1, flights, airlines); // Las horas están en formato de 24 horas.
-
+    fillFlights(20, 0, 12, flights, airlines); // Las horas están en formato de 24 horas.
+    // fillFlights(Cantidad de vuelos, hora de inicio, hora final, lista con vuelos, y arreglo de aerolíneas.)
+    
     Airport *airport = new Airport(RUNWAY_QUANTITY);
     airport->fillRunways(flights);
     airport->departures();

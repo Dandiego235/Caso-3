@@ -9,6 +9,12 @@ using namespace std;
 
 template <class T>
 class List {
+    private:
+        Node<T> *first; // primer nodo
+        Node<T> *last; // ultimo nodo
+        int quantity; // cantidad de nodes
+        Node<T> *searchPosition; // punter para buscar nodos
+
     public:
         List(){
             first = nullptr; // inicializamos los atributos.
@@ -43,11 +49,11 @@ class List {
 
             if (this->first!=nullptr) {
                 newNode->setNext(this->first);
+                this->first->setPrev(newNode);
             } else {
                 this->last = newNode;
             }
             this->first = newNode;
-            this->first->setPrev(newNode);
 
             quantity++;
         }
@@ -176,12 +182,6 @@ class List {
         }
         return result;
     }
-    
-    private:
-        Node<T> *first; // primer nodo
-        Node<T> *last; // ultimo nodo
-        int quantity; // cantidad de nodes
-        Node<T> *searchPosition; // punter para buscar nodos
 };
 
 #endif

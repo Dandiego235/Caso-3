@@ -55,13 +55,6 @@ class PriorityQueue{
         int size() {
             return queue->size();
         }
-
-        void print(){
-            Node<T> *nodePtr = queue->getFirst();
-            while (nodePtr != nullptr){
-                cout << nodePtr << " " << nodePtr->getData() << endl;
-            }
-        }
 };
 
 #endif

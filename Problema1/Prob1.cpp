@@ -158,5 +158,4 @@ main(){
     cout << "Resultado: " << evaluatePostfix(postfix) << endl;
 }
 
-// Revisar is digit
 //25*7+(100-25)%4-17/3

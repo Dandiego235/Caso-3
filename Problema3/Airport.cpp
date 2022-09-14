@@ -27,6 +27,7 @@ class Airport{
             }
         }
         
+        // Función para llenar las pistas, recibe una lista con los vuelos.
         void fillRunways(List<Flight> *pFlights){
             Node<Flight> *flightPtr = pFlights->getFirst(); // Obtengo el primer vuelo
             Flight *flight;
@@ -44,6 +45,7 @@ class Airport{
             }
         }
 
+        // Función para simular la salida de los aviones.
         void departures(){
             Flight *flightTakeOff; // Puntero para el vuelo. 
             Flight *flightCheck; // Puntero para comparar el vuelo con los primeros de las otras colas.
@@ -52,8 +54,8 @@ class Airport{
                 int runwayNum = 0;
                 // Itero por las otras pistas para revisar si hay un vuelo que debe salir antes.
                 for (int counter = 1; counter < runwayIndexes.size(); counter++){
-                    // counter es el número de pista para sacar el vuelo a revisar. Como empiezo usualmente con el vuelo de la primera pista no vacía,
-                    // el counter empieza con el vuelo desde la segunda pista no vacía.
+                    // counter es el número de pista para sacar el vuelo a revisar. Como empiezo usualmente con el vuelo de la primera pista no 
+                    // vacía, el counter empieza con el vuelo desde la segunda pista no vacía.
                     flightCheck = runways[runwayIndexes[counter]].front(); // Obtiene el primer vuelo de la pista de counter.
                     if (flightCheck->getIntTimeValue() < flightTakeOff->getIntTimeValue()){
                         // Si el vuelo que reviso tiene una prioridad menor que el vuelo que voy a sacar, lo cambio por el menor.
@@ -63,7 +65,7 @@ class Airport{
                 }
                 cout << "El vuelo " << flightTakeOff->getNumFlight() << " de " << flightTakeOff->getAirline() << " despegó de la pista " 
                 << runwayIndexes[runwayNum] + 1 << " a las " << flightTakeOff->flightTimeString() << endl;
-
+                // Se imprime la información del vuelo y se saca de la cola.
                 runways[runwayIndexes[runwayNum]].dequeue();
 
                 if (runways[runwayIndexes[runwayNum]].isEmpty()){ // Si la pista quedó vacía, 
